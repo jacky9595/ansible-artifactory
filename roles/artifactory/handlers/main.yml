@@ -1,0 +1,34 @@
+---
+
+- name: 'start artifactory'
+  become: yes
+  command: "{{ artifactory_home }}/bin/artifactoryManage.sh start"
+  tags:
+    - artifactory
+    - init
+
+- name: 'restart artifactory'
+  become: yes
+  command: "{{ artifactory_home }}/bin/artifactoryManage.sh restart"
+  tags:
+    - artifactory
+
+
+#- name: 'start artifactory'
+#  become: yes
+#  service:
+#    name: artifactory
+#    state: started
+#  tags:
+#    - artifactory
+#    - init
+
+#- name: 'restart artifactory'
+#  become: yes
+#  service:
+#    name: artifactory
+#    state: restarted
+#  tags:
+#    - artifactory
+
+

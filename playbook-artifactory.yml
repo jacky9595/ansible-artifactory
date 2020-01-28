@@ -1,0 +1,28 @@
+---
+- name: Install Server Artifactory
+  hosts: serverartifactory
+  become: true
+
+  pre_tasks:
+
+    - name: Install dependencies.
+      package:
+        name:
+          - curl
+          - unzip
+        state: present
+
+  roles:
+    - role: java
+    - role: postgresql
+    - role: artifactory
+
+  post_tasks:
+    - name: Ensure Artifactory is running.
+      uri:
+        url: "http://127.0.0.1:8081/"
+        status_code: 200
+      register: result
+      until: result.status == 200
+      retries: 60
+      delay: 1
