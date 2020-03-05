@@ -160,4 +160,3 @@
     owner: "{{ artifactory_username }}"
     group: "{{ artifactory_username }}"
     mode: 0755
-

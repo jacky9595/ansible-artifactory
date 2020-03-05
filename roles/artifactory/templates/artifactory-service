@@ -14,4 +14,3 @@ ExecStop={{ artifactory_home }}/bin/artifactoryManage.sh stop
 [Install]
 WantedBy=multi-user.target
 Alias=artifactory.service
-
