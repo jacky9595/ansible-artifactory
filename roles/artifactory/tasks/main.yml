@@ -31,3 +31,4 @@
   when: artifactory_database == 'postgresql'
   tags:
     - postgres
+

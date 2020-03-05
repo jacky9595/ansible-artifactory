@@ -1,7 +1,7 @@
 ---
 
 ansible_os_family: Ubuntu
-artifactory_version: "6.10.9"
+artifactory_version: "6.15.1"
 artifactory_license: oss
 artifactory_username: "artifactory"
 artifactory_password: "artifactorypassword"
@@ -19,3 +19,4 @@ artifactory_database: postgresql
 artifactory_url: "https://bintray.com/artifact/download/jfrog/artifactory/jfrog-artifactory-{{ artifactory_license }}-{{ artifactory_version }}.zip"
 artifactory_file: "artifactory-{{ artifactory_version }}.zip"
 artifactory_home: "/opt/artifactory/artifactory-{{ artifactory_license }}-{{ artifactory_version }}"
+

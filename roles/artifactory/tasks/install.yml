@@ -104,6 +104,29 @@
   tags:
     - config
 
+- name: 'create configuration file 2'
+  template:
+    src: artifactory-default
+    dest: "{{ artifactory_home }}/bin/artifactory.default"
+    owner: "{{ artifactory_username }}"
+    group: "{{ artifactory_username }}"
+    mode: 0644
+  notify: 'restart artifactory'
+  tags:
+    - config
+
+- name: 'create configuration file 3'
+  template:
+    src: artifactory-service
+    dest: /etc/systemd/system/artifactory.service
+    owner: "{{ artifactory_username }}"
+    group: "{{ artifactory_username }}"
+    mode: 0644
+  when: "ansible_service_mgr == 'systemd'"
+  notify: 'restart artifactory'
+  tags:
+    - config
+
 - name: 'symlink current version'
   file:
     state: link
@@ -116,18 +139,19 @@
 
 - name: 'install artifactory as a service'
   command: "{{ artifactory_home }}/bin/installService.sh {{ artifactory_username }}"
-#  args:
-#    creates: /etc/init.d/artifactory
+  args:
+    creates: /etc/init.d/artifactory
+  when: "ansible_service_mgr == 'systemd'"
   notify: 'restart artifactory'
   tags:
     - init
 
-#- name: 'enable artifactory service'
-#  service:
-#    name: artifactory
-#    enabled: true
-#  tags:
-#    - init
+- name: 'enable artifactory service'
+  service:
+    name: artifactory
+    enabled: true
+  tags:
+    - init
 
 - name: 'create deploy script'
   copy:
@@ -136,3 +160,4 @@
     owner: "{{ artifactory_username }}"
     group: "{{ artifactory_username }}"
     mode: 0755
+
